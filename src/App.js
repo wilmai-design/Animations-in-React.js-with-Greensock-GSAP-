@@ -13,7 +13,7 @@ function App() {
   let app = useRef(null);
   let images = useRef(null);
   let content = useRef(null);
-  let tl = new TimelineLite();
+  let tl = new TimelineLite({delay: .8});
 
   useEffect(() => {
     //Images vars
@@ -32,13 +32,21 @@ function App() {
     //console.log(images);
 
     //Images animation
-    tl.from(girlImage, 1.2, {y: 1280, ease: Power3.easeInOut})
+    tl.from(girlImage, 1.2, {y: 1280, ease: Power3.easeInOut}, 'Start')
       .from(girlImage.firstElementChild, 2, {scale: 1.7, ease: Power3.easeOut}, .2)
       .from(boyImage, 1.2, {y: 1280, ease: Power3.easeInOut}, .2)
       .from(boyImage.firstElementChild, 2, {scale: 1.9, ease: Power3.easeOut}, .2)
 
 
-      console.log(headlineFirst, headlineSecond, headlineThird, contentP, contentButton);
+      //console.log(headlineFirst, headlineSecond, headlineThird, contentP, contentButton);
+      tl.staggerFrom( [headlineFirst.children, headlineSecond.children, headlineThird.children], 1, {
+        y: 44,
+        ease: Power3.easeInOut,
+        delay: .8 
+        }, .15, 'Start')
+
+        .from(contentP, 1, {y: 20, opacity:0, ease: Power3.easeOut}, 1.4)
+        .from(contentButton, 1, {y:20, opacity:0, ease: Power3.easeOut}, 1.6)
 
   })
 
